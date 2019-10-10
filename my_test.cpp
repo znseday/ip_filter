@@ -15,8 +15,10 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_MyVersion)
 */
 BOOST_AUTO_TEST_CASE(ip_filter_test_ConvertLineToIP)
 {
+	cout << "This is My Test !!!!!!!!!!!!!!" << endl;
 	string TestString = "100.2.30.44";
 	ipType ip = ConvertLineToIP(TestString);
+	cout << (int)ip.Bytes[0]<< endl;
 	BOOST_CHECK(ip.Bytes[0] == 100 && ip.Bytes[1] == 2 && ip.Bytes[2] == 30 && ip.Bytes[3] == 44);
 }
 /*
