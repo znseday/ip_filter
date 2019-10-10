@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 
 if(WIN32 OR WIN64)
-	message(STATUS "My Windows detected")
+	message(STATUS "My Windows detected!")
 	project(ip_filter VERSION 0.0.1000)
 	set(BOOST_ROOT "C:/Boost")
 else()
