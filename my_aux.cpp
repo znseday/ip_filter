@@ -30,7 +30,7 @@ ipType ConvertLineToIP(const std::string& str)
 	//stringstream ss(str);
 	//stringstream ss;
 	//ss << str;
-
+        // I don't know how to use it yet
 	//for (int t, i = 0; i < 4; i++)
 	//{
 		//int t;
