@@ -20,7 +20,6 @@ int main()
 		cout << "My error: the input file not found" << endl;
 		exit(0);
 	}
-	ofstream o_stream("My_Out.txt"); // for debugging
 #else
 	istream& i_stream = cin;
 #endif
