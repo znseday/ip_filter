@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_MyVersion)
 {
     BOOST_CHECK(MyVersion() > 0);
 }
-
+/*
 BOOST_AUTO_TEST_CASE(ip_filter_test_ConvertLineToIP)
 {
 	string TestString = "100.2.30.44";
@@ -35,6 +35,6 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_FilterByBytes)
 
 	BOOST_CHECK(TestString == test);
 }
-
+*/
 
 BOOST_AUTO_TEST_SUITE_END()
