@@ -25,9 +25,9 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_FilterByBytes)
 	string TestString = "100.2.30.44";
 	
 	ipType ip = ConvertLineToIP(TestString);
-	cout << "ip for test: " << ip;
-	cout << "result ip (must be the same): ";
-	FilterByBytes(cout, ip, (unsigned char)100, (unsigned char)2);
+	//cout << "ip for test: " << ip;
+	//cout << "result ip (must be the same): ";
+	//FilterByBytes(cout, ip, (unsigned char)100, (unsigned char)2);
 	stringstream ss;
 	FilterByBytes(ss, ip, (unsigned char)100, (unsigned char)2);
 	string test;
