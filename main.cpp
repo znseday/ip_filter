@@ -31,9 +31,6 @@ int main()
 	// lex sort
 	sort(ips.begin(), ips.end());
 	copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(cout));
-#if (defined WIN32) || (defined WIN64)
-	copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(o_stream)); // for debugging
-#endif
 
 	auto LambdaFilterOne = [&ips](unsigned char byte) 
 	{
