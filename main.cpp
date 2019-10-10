@@ -49,10 +49,7 @@ int main()
 		for (auto it = ips.cbegin(); it != ips.cend(); ++it)
 			FilterByBytes(cout, *it, params...);
 	};
-
-	//cout << "------------------------------------------------------" << endl;
-	LambdaFilterByBytes(46, 70);
-	//cout << "------------------------------------------------------" << endl;
+	LambdaFilterByBytes((unsigned char)46, (unsigned char)70);
 
 	auto LambdaFilterAny = [&ips](unsigned char byte)
 	{
