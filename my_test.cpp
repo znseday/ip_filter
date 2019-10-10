@@ -7,12 +7,12 @@
 using namespace std;
 
 BOOST_AUTO_TEST_SUITE(ip_filter_test_suite)
-
+/*
 BOOST_AUTO_TEST_CASE(ip_filter_test_MyVersion)
 {
     BOOST_CHECK(MyVersion() > 0);
 }
-
+*/
 BOOST_AUTO_TEST_CASE(ip_filter_test_ConvertLineToIP)
 {
 	string TestString = "100.2.30.44";
