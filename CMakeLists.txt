@@ -13,7 +13,7 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
 
-add_executable(ip_filter_main main.cpp )
+add_executable(ip_filter main.cpp )
 
 add_executable(my_tests my_test.cpp)
 
@@ -24,11 +24,11 @@ else()
 endif()
 
 if(WIN32 OR WIN64)
-	set_target_properties(ip_filter_main my_aux my_tests PROPERTIES
+	set_target_properties(ip_filter my_aux my_tests PROPERTIES
 		CXX_STANDARD 17
 		CXX_STANDARD_REQUIRED ON)
 else()
-	set_target_properties(ip_filter_main my_aux my_tests PROPERTIES
+	set_target_properties(ip_filter my_aux my_tests PROPERTIES
 		CXX_STANDARD 17
 		CXX_STANDARD_REQUIRED ON
 		COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra")
@@ -39,7 +39,7 @@ set_target_properties(my_tests PROPERTIES
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(ip_filter_main
+target_link_libraries(ip_filter
 	my_aux
 #    Threads::Threads
 )
@@ -49,7 +49,7 @@ target_link_libraries(my_tests
     my_aux
 )
 
-install(TARGETS ip_filter_main RUNTIME DESTINATION bin)
+install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
