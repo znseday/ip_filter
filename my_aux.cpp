@@ -40,8 +40,8 @@ ipType ConvertLineToIP(const std::string& str)
 
 	int t[4];
 	sscanf(str.c_str(), "%i.%i.%i.%i", &t[0], &t[1], &t[2], &t[3]);
-	for (int i = 0; i < 4; ip.Bytes[i++] = t[i]);
-
+	for (int i = 0; i < 4; i++)
+		ip.Bytes[i] = t[i];
 	return ip;
 }
 
