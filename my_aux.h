@@ -25,7 +25,7 @@ ipType ConvertLineToIP(const std::string &str);
 template<typename... Args>
 void FilterByBytes(std::ostream& s, ipType ip, Args... args)
 {
-	const int argc = sizeof...(args);
+	//const int argc = sizeof...(args);
 	//BYTE a[argc] = { (args)... };
 
 	ipType a = { (args)... }; // ??? it works, hmm...
