@@ -20,6 +20,7 @@ int main()
 		cout << "My error: the input file not found" << endl;
 		exit(0);
 	}
+	ofstream o_stream("My_Out.txt"); // for debugging
 #else
 	istream& i_stream = cin;
 #endif
@@ -31,30 +32,38 @@ int main()
 	// lex sort
 	sort(ips.begin(), ips.end());
 	copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(cout));
+#if (defined WIN32) || (defined WIN64)
+	copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(o_stream)); // for debugging
+#endif
 
-	auto LambdaFilterOne = [&ips](unsigned char byte) 
-	{
-		for (auto it = ips.cbegin(); it != ips.cend(); ++it)
-			if ((*it).Bytes[0] == byte)
-				cout << *it;
-	};
-	LambdaFilterOne(1);
+	//auto LambdaFilterOne = [&ips](BYTE byte) // it's not necessary any more, cos we have LambdaFilterByBytes
+	//{
+	//	for (auto it = ips.cbegin(); it != ips.cend(); ++it)
+	//		if ((*it).Bytes[0] == byte)
+	//			cout << *it;
+	//};
+	//LambdaFilterOne((BYTE)1);
 
 	auto LambdaFilterByBytes = [&ips](auto... params)
 	{
 		for (auto it = ips.cbegin(); it != ips.cend(); ++it)
 			FilterByBytes(cout, *it, params...);
 	};
-	LambdaFilterByBytes((unsigned char)46, (unsigned char)70);
 
-	auto LambdaFilterAny = [&ips](unsigned char byte)
+	LambdaFilterByBytes((BYTE)1); // instead of LambdaFilterOne((BYTE)1); 
+
+	//cout << "------------------------------------------------------" << endl;
+	LambdaFilterByBytes((BYTE)46, (BYTE)70);
+	//cout << "------------------------------------------------------" << endl;
+
+	auto LambdaFilterAny = [&ips](BYTE byte)
 	{
 		for (auto it = ips.cbegin(); it != ips.cend(); ++it)
-			if ((*it).Bytes[0] == byte || (*it).Bytes[1] == byte || (*it).Bytes[2] == byte || (*it).Bytes[3] == byte)
-				cout << *it;
+		//	if ((*it).Bytes[0] == byte || (*it).Bytes[1] == byte || (*it).Bytes[2] == byte || (*it).Bytes[3] == byte)
+			if ( any_of( (*it).Bytes, (*it).Bytes + 4, [byte](BYTE val) {return val == byte; } ) ) 
+				cout << *it;	
 	};
-	LambdaFilterAny(46);
-
+	LambdaFilterAny((BYTE)46);
 
     return 0;
 }

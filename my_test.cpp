@@ -25,15 +25,31 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_FilterByBytes)
 	string TestString = "100.2.30.44";
 	
 	ipType ip = ConvertLineToIP(TestString);
-	cout << "ip for test: " << ip;
-	cout << "result ip (must be the same): ";
-	FilterByBytes(cout, ip, (unsigned char)100, (unsigned char)2);
+	//cout << "ip for test: " << ip;
+	//cout << "result ip (must be the same): ";
+	//FilterByBytes(cout, ip, (BYTE)100, (BYTE)2);
 	stringstream ss;
-	FilterByBytes(ss, ip, (unsigned char)100, (unsigned char)2);
+	FilterByBytes(ss, ip, (BYTE)100, (BYTE)2);
 	string test;
 	ss >> test;
 
-	BOOST_CHECK(TestString == test);
+	BOOST_REQUIRE_EQUAL(TestString, test);
+}
+
+BOOST_AUTO_TEST_CASE(ip_filter_test_FilterByBytes_not)
+{
+	string TestString = "100.2.30.44";
+
+	ipType ip = ConvertLineToIP(TestString);
+	//cout << "ip for test: " << ip;
+	//cout << "result ip (must be the same): ";
+	//FilterByBytes(cout, ip, (BYTE)100, (BYTE)2);
+	stringstream ss;
+	FilterByBytes(ss, ip, (BYTE)100, (BYTE)74, (BYTE)30);
+	string test;
+	ss >> test;
+
+	BOOST_REQUIRE_NE(TestString, test);
 }
 
 

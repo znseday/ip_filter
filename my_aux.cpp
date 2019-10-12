@@ -30,7 +30,7 @@ ipType ConvertLineToIP(const std::string& str)
 	//stringstream ss(str);
 	//stringstream ss;
 	//ss << str;
-        // I don't know how to use it yet
+	// I don't know how to use it yet (((
 	//for (int t, i = 0; i < 4; i++)
 	//{
 		//int t;
@@ -40,8 +40,7 @@ ipType ConvertLineToIP(const std::string& str)
 
 	int t[4];
 	sscanf(str.c_str(), "%i.%i.%i.%i", &t[0], &t[1], &t[2], &t[3]);
-	for (int i = 0; i < 4; i++)
-		ip.Bytes[i] = t[i];
+	for (int i = 0; i < 4; ip.Bytes[i++] = t[i]);
 
 	return ip;
 }
