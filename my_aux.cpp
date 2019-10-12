@@ -19,7 +19,8 @@ int MyVersion()
 ostream& operator<<(ostream& s, const ipType& ob)
 {
 	for (int i = 0; i < 4; i++)
-		s << (int)ob.Bytes[i] << ((i < 3) ? '.' : '\n');
+		//s << (int)ob.Bytes[i] << ((i < 3) ? '.' : '\n');
+		s << (int)ob[i] << ((i < 3) ? '.' : '\n');
 
 	return s;
 }
@@ -41,35 +42,37 @@ ipType ConvertLineToIP(const std::string& str)
 	int t[4];
 	sscanf(str.c_str(), "%i.%i.%i.%i", &t[0], &t[1], &t[2], &t[3]);
 	for (int i = 0; i < 4; i++)
-		ip.Bytes[i] = t[i];
+		ip.push_back((BYTE)t[i]);
+		/*ip.Bytes[i] = t[i];*/
+
 	return ip;
 }
 
-bool ipType::operator<(const ipType& ob) const
-{
-	if (Bytes[0] > ob.Bytes[0])
-		return true;
-	else if (Bytes[0] == ob.Bytes[0])
-	{
-		if (Bytes[1] > ob.Bytes[1])
-			return true;
-		else if (Bytes[1] == ob.Bytes[1])
-		{
-			if (Bytes[2] > ob.Bytes[2])
-				return true;
-			else if (Bytes[2] == ob.Bytes[2])
-			{
-				if (Bytes[3] > ob.Bytes[3])
-					return true;
-				else
-					return false;
-			}
-			else
-				return false;
-		}
-		else
-			return false;
-	}
-	else
-		return false;
-}
+//bool ipType::operator<(const ipType& ob) const
+//{
+//	if (Bytes[0] > ob.Bytes[0])
+//		return true;
+//	else if (Bytes[0] == ob.Bytes[0])
+//	{
+//		if (Bytes[1] > ob.Bytes[1])
+//			return true;
+//		else if (Bytes[1] == ob.Bytes[1])
+//		{
+//			if (Bytes[2] > ob.Bytes[2])
+//				return true;
+//			else if (Bytes[2] == ob.Bytes[2])
+//			{
+//				if (Bytes[3] > ob.Bytes[3])
+//					return true;
+//				else
+//					return false;
+//			}
+//			else
+//				return false;
+//		}
+//		else
+//			return false;
+//	}
+//	else
+//		return false;
+//}

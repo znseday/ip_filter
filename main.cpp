@@ -20,7 +20,6 @@ int main()
 		cout << "My error: the input file not found" << endl;
 		exit(0);
 	}
-	ofstream o_stream("My_Out.txt"); // for debugging
 #else
 	istream& i_stream = cin;
 #endif
@@ -30,16 +29,20 @@ int main()
 		ips.push_back(ConvertLineToIP(line));
 
 	// lex sort
-	sort(ips.begin(), ips.end());
-	copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(cout));
-#if (defined WIN32) || (defined WIN64)
-	copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(o_stream)); // for debugging
-#endif
+	//sort(ips.begin(), ips.end(), greater_equal<ipType>()); // Why does it throw "invalid comparator"?
+
+	sort(ips.begin(), ips.end(), greater<ipType>());
+
+	for (auto it = ips.cbegin(); it != ips.cend(); ++it) // Added, cos std::copy doesn't work any more
+		cout << *it;
+
+	//copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(cout)); // doesn't work any more((( Why???
+
 
 	//auto LambdaFilterOne = [&ips](BYTE byte) // it's not necessary any more, cos we have LambdaFilterByBytes
 	//{
 	//	for (auto it = ips.cbegin(); it != ips.cend(); ++it)
-	//		if ((*it).Bytes[0] == byte)
+	//		if ((*it).Bytes[0] == byte) // for an old version when we use char[4] 
 	//			cout << *it;
 	//};
 	//LambdaFilterOne((BYTE)1);
@@ -60,7 +63,8 @@ int main()
 	{
 		for (auto it = ips.cbegin(); it != ips.cend(); ++it)
 		//	if ((*it).Bytes[0] == byte || (*it).Bytes[1] == byte || (*it).Bytes[2] == byte || (*it).Bytes[3] == byte)
-			if ( any_of( (*it).Bytes, (*it).Bytes + 4, [byte](BYTE val) {return val == byte; } ) ) 
+		//	if ( any_of( (*it).Bytes, (*it).Bytes + 4, [byte](BYTE val) {return val == byte; } ) ) 
+			if (any_of((*it).cbegin(), (*it).cend(), [byte](BYTE val) {return val == byte; }))
 				cout << *it;	
 	};
 	LambdaFilterAny((BYTE)46);
