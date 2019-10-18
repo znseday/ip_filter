@@ -27,7 +27,7 @@ template<typename... Args>
 [[deprecated ("It's for an old linearic version")]] // Just to use "attribute: deprecated" :)
 void FilterByBytes(std::ostream& s, ipType ip, Args... args)
 {
-	const int argc = sizeof...(args);
+	//const int argc = sizeof...(args);
 	//BYTE a[argc] = { (args)... };
 
 	ipType a = { (args)... }; // ??? it works, hmm...
