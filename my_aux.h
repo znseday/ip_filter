@@ -22,10 +22,12 @@ std::ostream& operator<<(std::ostream& s, const ipType& ob);
 
 ipType ConvertLineToIP(const std::string &str);
 
+//                           // ! for an old linearic version !
 template<typename... Args>
+[[deprecated ("It's for an old linearic version")]] // Just to use "attribute: deprecated" :)
 void FilterByBytes(std::ostream& s, ipType ip, Args... args)
 {
-	//const int argc = sizeof...(args);
+	const int argc = sizeof...(args);
 	//BYTE a[argc] = { (args)... };
 
 	ipType a = { (args)... }; // ??? it works, hmm...
@@ -41,7 +43,7 @@ void FilterByBytes(std::ostream& s, ipType ip, Args... args)
 	//if (success)
 	//	s << ip;
 
-	//if ( std::equal(a, a + argc, ip.Bytes) ) // for old version, when we use char[4]
+	//if ( std::equal(a, a + argc, ip.Bytes) ) // for the old version, when we use char[4]
 	//	s << ip;
 
 	if (std::equal(a.cbegin(), a.cend(), ip.cbegin()))

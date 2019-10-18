@@ -33,24 +33,48 @@ int main()
 
 	sort(ips.begin(), ips.end(), greater<ipType>());
 
-	for (auto it = ips.cbegin(); it != ips.cend(); ++it) // Added, cos std::copy doesn't work any more
+	for (auto it = ips.cbegin(); it != ips.cend(); ++it) // Added, cos std::copy doesn't work any more !
 		cout << *it;
 
 	//copy(ips.cbegin(), ips.cend(), ostream_iterator<ipType>(cout)); // doesn't work any more((( Why???
 
 
-	//auto LambdaFilterOne = [&ips](BYTE byte) // it's not necessary any more, cos we have LambdaFilterByBytes
+	//auto LambdaFilterOne = [&ips](BYTE byte) // it's not necessary any more, cos we have LambdaFilterByBytes !
 	//{
 	//	for (auto it = ips.cbegin(); it != ips.cend(); ++it)
-	//		if ((*it).Bytes[0] == byte) // for an old version when we use char[4] 
+	//		if ((*it).Bytes[0] == byte) // for the old version when we use char[4] 
 	//			cout << *it;
 	//};
 	//LambdaFilterOne((BYTE)1);
 
 	auto LambdaFilterByBytes = [&ips](auto... params)
 	{
-		for (auto it = ips.cbegin(); it != ips.cend(); ++it)
-			FilterByBytes(cout, *it, params...);
+		ipType a { (params)... }; // ??? it works, hmm...
+		const int argc = sizeof...(params);
+		for (int i = argc; i < 4; i++)
+			a.push_back(0);  // for lower_bound
+
+		ipType b { (params)... }; // ??? it works, hmm...
+		for (int i = argc; i < 4; i++)
+			b.push_back(255); // for upper_bound
+
+		//vector<ipType>::reverse_iterator it = lower_bound(ips.cbegin(), ips.cend(), a, greater<ipType>()/*, [](ipType cur, ipType a) {return; }*/);
+		//auto it_l = lower_bound(ips.cbegin(), ips.cend(), a , [](ipType a, ipType cur) {return cur < a; });
+		//auto it_u = upper_bound(ips.cbegin(), ips.cend(), b , [](ipType b, ipType cur) {return cur < b; });
+
+		auto it_l = lower_bound(ips.cbegin(), ips.cend(), a, greater<ipType>());
+		auto it_u = upper_bound(ips.cbegin(), ips.cend(), b, greater<ipType>());
+
+		//cout << "--------------------" << endl;
+		//cout << *it_l;   // for debugging
+		//cout << *it_u;   // for debugging
+		//cout << "--------------------" << endl;
+
+		for (; it_l != it_u; ++it_u)
+			cout << *it_u;
+
+//		for (auto it = ips.cbegin(); it != ips.cend(); ++it) // for an old linearic version
+//			FilterByBytes(cout, *it, params...);             // cause "Deprecated" warning
 	};
 
 	LambdaFilterByBytes((BYTE)1); // instead of LambdaFilterOne((BYTE)1); 
