@@ -52,11 +52,11 @@ int main()
 		ipType a { (params)... }; // ??? it works, hmm...
 		const int argc = sizeof...(params);
 		for (int i = argc; i < 4; i++)
-			a.push_back(0);  // for lower_bound
+			a.push_back((BYTE)0);  // for lower_bound
 
 		ipType b { (params)... }; // ??? it works, hmm...
 		for (int i = argc; i < 4; i++)
-			b.push_back(255); // for upper_bound
+			b.push_back((BYTE)255); // for upper_bound
 
 		//vector<ipType>::reverse_iterator it = lower_bound(ips.cbegin(), ips.cend(), a, greater<ipType>()/*, [](ipType cur, ipType a) {return; }*/);
 		//auto it_l = lower_bound(ips.cbegin(), ips.cend(), a , [](ipType a, ipType cur) {return cur < a; });
@@ -74,7 +74,7 @@ int main()
 			cout << *it_u;
 
 //		for (auto it = ips.cbegin(); it != ips.cend(); ++it) // for an old linearic version
-//			FilterByBytes(cout, *it, params...);             // cause "Deprecated" warning
+//			FilterByBytes(cout, *it, params...);         // causes "Deprecated" warning
 	};
 
 	LambdaFilterByBytes((BYTE)1); // instead of LambdaFilterOne((BYTE)1); 
